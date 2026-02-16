@@ -1,0 +1,29 @@
+:root { --p: #6c5ce7; --s: #00b894; --err: #ff7675; --dark: #121212; }
+
+body { background: linear-gradient(135deg, #6c5ce7, #a29bfe); font-family: 'Segoe UI', sans-serif; margin: 0; padding: 20px; min-height: 100vh; display: flex; justify-content: center; }
+.container { width: 100%; max-width: 480px; }
+
+header { text-align: center; color: white; margin-bottom: 25px; cursor: pointer; }
+.card { background: rgba(255,255,255,0.95); border-radius: 20px; padding: 25px; margin-bottom: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); }
+
+#food-img { width: 100%; border-radius: 15px; margin-bottom: 15px; height: 180px; object-fit: cover; }
+.input-stack input, .input-stack select { width: 100%; padding: 14px; border-radius: 10px; border: 1px solid #ddd; margin-bottom: 12px; box-sizing: border-box; font-size: 1rem; }
+
+.btn-main { width: 100%; background: var(--p); color: white; border: none; padding: 16px; border-radius: 10px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+.btn-main:hover { transform: scale(1.02); background: #5649c1; }
+
+.ticket { border: 2px dashed var(--p); padding: 20px; border-radius: 15px; text-align: center; background: #f9f9ff; }
+.ticket-actions { display: flex; gap: 10px; justify-content: center; margin-top: 15px; }
+.btn-sub { padding: 8px 12px; border-radius: 8px; border: 1px solid #ddd; cursor: pointer; font-size: 0.8rem; }
+
+/* Admin Dashboard Console */
+.admin-console { background: var(--dark); color: #fff; border-radius: 20px; padding: 25px; }
+.admin-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+.metrics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; }
+.metric-box { background: #1e1e1e; padding: 15px; border-radius: 12px; border-left: 5px solid var(--s); text-align: center; }
+.bar-bg { background: #333; height: 14px; border-radius: 7px; overflow: hidden; margin: 10px 0; }
+.bar-fill { background: var(--s); height: 100%; width: 0%; transition: 1s ease-in-out; }
+.scroll-box { max-height: 150px; overflow-y: auto; background: #1e1e1e; border-radius: 10px; margin-top: 10px; }
+table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+th, td { padding: 10px; text-align: left; border-bottom: 1px solid #333; }
+th { color: var(--s); }

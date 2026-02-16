@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>quickbite(final)</title>
+    <link rel="stylesheet" href="./style.css">
+
+  </head>
+    
+  <body>
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuickBite Pro | Smart Mess Management</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header onclick="checkAdminTrigger()">
+            <h1>QuickBite <span>Pro</span></h1>
+            <p id="live-clock">00:00:00</p>
+        </header>
+
+        <section class="card hub-card">
+            <h2 id="meal-greeting">System Ready</h2>
+            <div class="menu-flex">
+                <img id="food-img" src="" alt="Live Menu Preview">
+                <div class="menu-details">
+                    <h3 id="food-name">Syncing...</h3>
+                    <p id="food-desc"></p>
+                </div>
+            </div>
+        </section>
+
+        <section class="card action-card">
+            <h3>Digital Pass Terminal</h3>
+            <div class="input-stack">
+                <input type="text" id="studentName" placeholder="Full Student Name">
+                <input type="text" id="rollNo" placeholder="Official Roll Number">
+                <select id="studentYear">
+                    <option value="" disabled selected>Enrollment Year</option>
+                    <option>1st Year</option><option>2nd Year</option>
+                    <option>3rd Year</option><option>4th Year</option>
+                </select>
+                <button class="btn-main" id="gen-btn" onclick="generateToken()">Generate Token</button>
+            </div>
+
+            <div id="ticket" class="ticket" style="display: none;">
+                <div class="ticket-header">OFFICIAL MEAL AUTHORIZATION</div>
+                <div id="qrcode"></div>
+                <p>Authorized: <strong><span id="displayStudent"></span></strong></p>
+                <div class="ticket-actions">
+                    <button class="btn-sub" onclick="downloadQR()">Save to Device</button>
+                    <button class="btn-sub" onclick="window.print()">Print Pass</button>
+                </div>
+            </div>
+        </section>
+
+        <div id="admin-panel" class="admin-console" style="display: none;">
+            <div class="admin-head">
+                <h3> Enterprise Admin Hub</h3>
+                <div class="admin-ops">
+                    <button class="btn-export" onclick="downloadCSV()">Export CSV</button>
+                    <button class="btn-reset" onclick="clearLogs()">Reset Day</button>
+                </div>
+            </div>
+
+            <div class="metrics-grid">
+                <div class="metric-box">
+                    <label>Attendance</label>
+                    <h2 id="live-count">0</h2>
+                </div>
+                <div class="metric-box" style="border-color: #ff7675;">
+                    <label>Security Flags</label>
+                    <h2 id="alert-count">0</h2>
+                </div>
+            </div>
+
+            <div class="analytics-box">
+                <label>Crowd Density Index</label>
+                <div class="bar-bg"><div id="crowd-fill" class="bar-fill"></div></div>
+                <p id="crowd-status">Optimizing System...</p>
+            </div>
+
+            <div class="log-container">
+                <h4>Verified Attendance Log</h4>
+                <div class="scroll-box"><table id="log-table"><thead><tr><th>Name</th><th>Roll</th><th>Year</th></tr></thead><tbody id="log-body"></tbody></table></div>
+                
+                <h4 style="color:#ff7675; margin-top:20px;"> Security Breach Log</h4>
+                <div class="scroll-box"><table id="sec-table"><thead><tr><th>Roll</th><th>Meal</th><th>Timestamp</th></tr></thead><tbody id="sec-body"></tbody></table></div>
+            </div>
+            <button class="btn-exit" onclick="closeAdmin()">Exit Dashboard</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
+    <script  src="./script.js"></script>
+
+  </body>
+  
+</html>
