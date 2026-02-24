@@ -1,7 +1,7 @@
 const meals = {
     breakfast: { s: 8.0, e: 10.5, n: "Breakfast", img: "https://images.unsplash.com/photo-1589302168068-964664d93dc0?w=500", d: "8:00 AM - 10:30 AM" },
     lunch:     { s: 12.5, e: 14.5, n: "Lunch", img: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=500", d: "12:30 PM - 2:30 PM" },
-    snacks:    { s: 16.5, e: 17.5, n: "Snacks", img: "https://images.unsplash.com/photo-1601050690597-df056fb04791?w=500", d: "4:30 PM - 5:30 PM" },
+    snacks:    { s: 16.5, e: 17.5, n: "Snacks", img: "https://static.vecteezy.com/system/resources/thumbnails/036/497/900/small/ai-generated-crispy-samosas-with-savory-filling-on-a-white-plate-isolated-on-transparent-background-png.png", d: "4:30 PM - 5:30 PM" },
     dinner:    { s: 20.0, e: 22.0, n: "Dinner", img: "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=500", d: "8:00 PM - 10:00 PM" }
 };
 
