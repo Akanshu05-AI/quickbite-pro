@@ -1,4 +1,4 @@
-# QuickBite Pro 
+# QuickBite Pro Minor
 **Smart Mess Management System with Digital Pass Terminal**
 
 QuickBite Pro is a lightweight, responsive web application designed to streamline university mess operations. It features real-time menu updates, secure QR token generation, and an automated attendance tracking system.
