@@ -1,16 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
-  <head>
-    <meta charset="UTF-8">
-    <title>quickbite(final)</title>
-    <link rel="stylesheet" href="./style.css">
-
-  </head>
-    
-  <body>
-  <!DOCTYPE html>
-<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,49 +9,348 @@
 </head>
 <body>
     <div class="container">
-        <header onclick="checkAdminTrigger()">
-            <h1>QuickBite <span>Pro</span></h1>
-            <p id="live-clock">00:00:00</p>
-        </header>
-
-        <section class="card hub-card">
-            <h2 id="meal-greeting">System Ready</h2>
-            <div class="menu-flex">
-                <img id="food-img" src="" alt="Live Menu Preview">
-                <div class="menu-details">
-                    <h3 id="food-name">Syncing...</h3>
-                    <p id="food-desc"></p>
+        <!-- Login Screen -->
+        <div id="login-screen" class="screen active">
+            <div class="login-card">
+                <h1>QuickBite <span>Pro</span></h1>
+                <p class="tagline">Smart Mess Management System</p>
+                <div class="input-stack">
+                    <input type="email" id="login-email" placeholder="University Email ID">
+                    <input type="password" id="login-password" placeholder="Password">
+                    <button class="btn-main" onclick="login()">Login</button>
+                    <button class="btn-link" onclick="showSignup()">New User? Sign Up</button>
                 </div>
             </div>
-        </section>
+        </div>
 
-        <section class="card action-card">
-            <h3>Digital Pass Terminal</h3>
-            <div class="input-stack">
-                <input type="text" id="studentName" placeholder="Full Student Name">
-                <input type="text" id="rollNo" placeholder="Official Roll Number">
-                <select id="studentYear">
-                    <option value="" disabled selected>Enrollment Year</option>
-                    <option>1st Year</option><option>2nd Year</option>
-                    <option>3rd Year</option><option>4th Year</option>
-                </select>
-                <button class="btn-main" id="gen-btn" onclick="generateToken()">Generate Token</button>
-            </div>
-
-            <div id="ticket" class="ticket" style="display: none;">
-                <div class="ticket-header">OFFICIAL MEAL AUTHORIZATION</div>
-                <div id="qrcode"></div>
-                <p>Authorized: <strong><span id="displayStudent"></span></strong></p>
-                <div class="ticket-actions">
-                    <button class="btn-sub" onclick="downloadQR()">Save to Device</button>
-                    <button class="btn-sub" onclick="window.print()">Print Pass</button>
+        <!-- Signup Screen -->
+        <div id="signup-screen" class="screen">
+            <div class="login-card">
+                <h2>Create Account</h2>
+                <div class="input-stack">
+                    <input type="text" id="signup-name" placeholder="Full Name">
+                    <input type="text" id="signup-roll" placeholder="Roll Number">
+                    <input type="email" id="signup-email" placeholder="University Email">
+                    <select id="signup-year">
+                        <option value="" disabled selected>Select Year</option>
+                        <option>1st Year</option><option>2nd Year</option>
+                        <option>3rd Year</option><option>4th Year</option>
+                    </select>
+                    <input type="password" id="signup-password" placeholder="Create Password">
+                    <button class="btn-main" onclick="signup()">Sign Up</button>
+                    <button class="btn-link" onclick="showLogin()">Already have account? Login</button>
                 </div>
             </div>
-        </section>
+        </div>
 
+        <!-- Main Dashboard -->
+        <div id="main-dashboard" class="screen">
+            <header>
+                <div class="header-content">
+                    <h1>QuickBite <span>Pro</span></h1>
+                    <div class="header-right">
+                        <span id="user-balance" class="balance-badge">₹500</span>
+                        <button class="icon-btn" onclick="showNotifications()">🔔<span class="notif-badge">3</span></button>
+                        <button class="icon-btn" onclick="logout()">Logout</button>
+                    </div>
+                </div>
+                <p id="live-clock">00:00:00</p>
+            </header>
+
+            <!-- Navigation Tabs -->
+            <div class="tabs">
+                <button class="tab active" onclick="switchTab('menu')">Menu</button>
+                <button class="tab" onclick="switchTab('booking')">Book Meal</button>
+                <button class="tab" onclick="switchTab('mybookings')">My Bookings</button>
+                <button class="tab" onclick="switchTab('wallet')">Wallet</button>
+                <button class="tab" onclick="switchTab('more')">More</button>
+            </div>
+
+            <!-- Menu Tab -->
+            <div id="tab-menu" class="tab-content active">
+                <section class="card">
+                    <div class="menu-header">
+                        <h2 id="meal-greeting">Today's Menu</h2>
+                        <div class="crowd-indicator">
+                            <span id="crowd-badge" class="badge-green">🟢 Low Crowd</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Dietary Filters -->
+                    <div class="filter-chips">
+                        <button class="chip active" onclick="filterMenu('all')">All</button>
+                        <button class="chip" onclick="filterMenu('veg')">🥗 Veg Only</button>
+                        <button class="chip" onclick="filterMenu('nonveg')">🍗 Non-Veg</button>
+                        <button class="chip" onclick="filterMenu('jain')">🌿 Jain</button>
+                        <button class="chip" onclick="filterMenu('protein')">💪 High Protein</button>
+                    </div>
+
+                    <!-- Meal Cards -->
+                    <div id="menu-container" class="meal-grid">
+                        <!-- Dynamic menu items will be inserted here -->
+                    </div>
+
+                    <!-- AI Recommendations -->
+                    <div class="card ai-recommendation">
+                        <h4>🤖 AI Recommendation for You</h4>
+                        <p id="ai-suggestion">Based on your preferences, we suggest trying the High Protein Bowl today!</p>
+                    </div>
+                </section>
+
+                <!-- Last Minute Availability -->
+                <section class="card availability-card">
+                    <h3>🍽️ Last Minute Meal Availability</h3>
+                    <div class="availability-grid">
+                        <div class="avail-item">
+                            <span>Lunch</span>
+                            <span class="plates-left">23 plates left</span>
+                        </div>
+                        <div class="avail-item">
+                            <span>Dinner</span>
+                            <span class="plates-left">45 plates left</span>
+                        </div>
+                    </div>
+                    <p class="info-text">💡 You can grab food even without booking if plates are available!</p>
+                </section>
+            </div>
+
+            <!-- Booking Tab -->
+            <div id="tab-booking" class="tab-content">
+                <section class="card">
+                    <h2>📅 Book Your Meals</h2>
+                    <div class="input-stack">
+                        <input type="date" id="booking-date" min="">
+                        <select id="booking-meal">
+                            <option value="" disabled selected>Select Meal</option>
+                            <option value="breakfast">Breakfast (8:00 AM - 10:30 AM)</option>
+                            <option value="lunch">Lunch (12:30 PM - 2:30 PM)</option>
+                            <option value="snacks">Snacks (4:30 PM - 5:30 PM)</option>
+                            <option value="dinner">Dinner (8:00 PM - 10:00 PM)</option>
+                        </select>
+                        <select id="booking-type">
+                            <option value="" disabled selected>Meal Type</option>
+                            <option value="veg">Vegetarian</option>
+                            <option value="nonveg">Non-Vegetarian</option>
+                            <option value="jain">Jain</option>
+                        </select>
+                        <div class="price-display">
+                            <span>Price:</span>
+                            <span id="meal-price">₹60</span>
+                        </div>
+                        <button class="btn-main" onclick="bookMeal()">Book Now</button>
+                    </div>
+
+                    <!-- Monthly Plan -->
+                    <div class="plan-section">
+                        <h3>💰 Monthly Meal Plans</h3>
+                        <div class="plan-grid">
+                            <div class="plan-card">
+                                <h4>Basic Plan</h4>
+                                <p class="plan-price">₹3,500/month</p>
+                                <ul>
+                                    <li>2 meals/day</li>
+                                    <li>Save ₹500</li>
+                                </ul>
+                                <button class="btn-sub" onclick="subscribePlan('basic')">Subscribe</button>
+                            </div>
+                            <div class="plan-card featured">
+                                <span class="badge-popular">Popular</span>
+                                <h4>Premium Plan</h4>
+                                <p class="plan-price">₹5,200/month</p>
+                                <ul>
+                                    <li>3 meals + snacks/day</li>
+                                    <li>Save ₹800</li>
+                                    <li>Priority serving</li>
+                                </ul>
+                                <button class="btn-main" onclick="subscribePlan('premium')">Subscribe</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Group Booking -->
+                    <div class="group-booking">
+                        <h3>👥 Group Booking</h3>
+                        <p>Book meals with your friends!</p>
+                        <input type="text" id="group-friends" placeholder="Enter friend's email (comma separated)">
+                        <button class="btn-sub" onclick="createGroupBooking()">Create Group Booking</button>
+                    </div>
+                </section>
+
+                <!-- Smart Predictions -->
+                <section class="card prediction-card">
+                    <h3>📊 Smart Attendance Prediction</h3>
+                    <div class="prediction-grid">
+                        <div class="pred-item">
+                            <label>Expected for Lunch Today</label>
+                            <h2>156 students</h2>
+                            <div class="trend">📈 +12% vs yesterday</div>
+                        </div>
+                        <div class="pred-item">
+                            <label>Best Time to Visit</label>
+                            <h2>1:15 PM - 1:45 PM</h2>
+                            <div class="trend">⏰ Least crowded</div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- My Bookings Tab -->
+            <div id="tab-mybookings" class="tab-content">
+                <section class="card">
+                    <h2>📋 My Bookings</h2>
+                    
+                    <!-- Upcoming Bookings -->
+                    <h3 class="section-title">Upcoming Meals</h3>
+                    <div id="upcoming-bookings" class="bookings-list">
+                        <!-- Dynamic bookings will be inserted here -->
+                    </div>
+
+                    <!-- Past History -->
+                    <h3 class="section-title">Past History</h3>
+                    <div id="past-bookings" class="bookings-list">
+                        <!-- Dynamic past bookings will be inserted here -->
+                    </div>
+
+                    <!-- Health Tracker -->
+                    <div class="health-tracker">
+                        <h3>🍎 Health Tracker</h3>
+                        <div class="health-stats">
+                            <div class="stat-item">
+                                <label>Today's Calories</label>
+                                <h2>1,850 kcal</h2>
+                                <progress value="1850" max="2500"></progress>
+                                <span>Target: 2,500 kcal</span>
+                            </div>
+                            <div class="stat-item">
+                                <label>Weekly Balance</label>
+                                <p>✅ 4 balanced meals</p>
+                                <p>⚠️ Consider more protein tomorrow</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Feedback Section -->
+                    <div class="feedback-section">
+                        <h3>⭐ Rate Your Last Meal</h3>
+                        <div class="rating-container">
+                            <div class="rating-row">
+                                <label>Taste</label>
+                                <div class="stars" data-category="taste">
+                                    <span onclick="rateMeal('taste', 1)">⭐</span>
+                                    <span onclick="rateMeal('taste', 2)">⭐</span>
+                                    <span onclick="rateMeal('taste', 3)">⭐</span>
+                                    <span onclick="rateMeal('taste', 4)">⭐</span>
+                                    <span onclick="rateMeal('taste', 5)">⭐</span>
+                                </div>
+                            </div>
+                            <div class="rating-row">
+                                <label>Hygiene</label>
+                                <div class="stars" data-category="hygiene">
+                                    <span onclick="rateMeal('hygiene', 1)">⭐</span>
+                                    <span onclick="rateMeal('hygiene', 2)">⭐</span>
+                                    <span onclick="rateMeal('hygiene', 3)">⭐</span>
+                                    <span onclick="rateMeal('hygiene', 4)">⭐</span>
+                                    <span onclick="rateMeal('hygiene', 5)">⭐</span>
+                                </div>
+                            </div>
+                        </div>
+                        <textarea id="feedback-text" placeholder="Additional comments..."></textarea>
+                        <button class="btn-main" onclick="submitFeedback()">Submit Feedback</button>
+                        <div class="avg-rating">Today's Average Rating: <strong>4.2⭐</strong></div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Wallet Tab -->
+            <div id="tab-wallet" class="tab-content">
+                <section class="card">
+                    <h2>💳 My Wallet</h2>
+                    <div class="wallet-balance">
+                        <label>Current Balance</label>
+                        <h1>₹500.00</h1>
+                    </div>
+
+                    <!-- Add Money -->
+                    <div class="add-money-section">
+                        <h3>Add Money</h3>
+                        <div class="amount-chips">
+                            <button class="amount-chip" onclick="selectAmount(500)">₹500</button>
+                            <button class="amount-chip" onclick="selectAmount(1000)">₹1,000</button>
+                            <button class="amount-chip" onclick="selectAmount(2000)">₹2,000</button>
+                            <button class="amount-chip" onclick="selectAmount(5000)">₹5,000</button>
+                        </div>
+                        <input type="number" id="custom-amount" placeholder="Or enter custom amount">
+                        <button class="btn-main" onclick="addMoney()">Add to Wallet</button>
+                    </div>
+
+                    <!-- Payment History -->
+                    <div class="payment-history">
+                        <h3>Payment History</h3>
+                        <div id="payment-list" class="transactions-list">
+                            <!-- Dynamic transactions will be inserted here -->
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- More Tab -->
+            <div id="tab-more" class="tab-content">
+                <section class="card">
+                    <h2>⚙️ More Options</h2>
+
+                    <!-- Multi-Mess Comparison -->
+                    <div class="mess-comparison">
+                        <h3>🏢 Multi-Mess Comparison</h3>
+                        <p>Compare menus across campus mess halls</p>
+                        <select id="mess-selector">
+                            <option>Main Mess (Current)</option>
+                            <option>North Campus Mess</option>
+                            <option>South Campus Mess</option>
+                        </select>
+                        <button class="btn-sub" onclick="compareMessMenus()">Compare Menus</button>
+                    </div>
+
+                    <!-- Notifications Settings -->
+                    <div class="settings-section">
+                        <h3>🔔 Notification Preferences</h3>
+                        <label class="switch-label">
+                            <input type="checkbox" checked onchange="toggleNotif('meal-reminders')">
+                            <span>Meal Reminders</span>
+                        </label>
+                        <label class="switch-label">
+                            <input type="checkbox" checked onchange="toggleNotif('menu-updates')">
+                            <span>Menu Updates</span>
+                        </label>
+                        <label class="switch-label">
+                            <input type="checkbox" checked onchange="toggleNotif('booking-confirm')">
+                            <span>Booking Confirmations</span>
+                        </label>
+                        <label class="switch-label">
+                            <input type="checkbox" onchange="toggleNotif('crowd-alerts')">
+                            <span>Crowd Status Alerts</span>
+                        </label>
+                    </div>
+
+                    <!-- QR Code Access -->
+                    <div class="qr-section">
+                        <h3>📱 My QR Code</h3>
+                        <p>Show this QR code at mess entry</p>
+                        <div id="user-qr" class="qr-display"></div>
+                        <button class="btn-sub" onclick="generateUserQR()">Generate My QR</button>
+                    </div>
+
+                    <!-- Admin Access -->
+                    <div class="admin-trigger" onclick="checkAdminTrigger()">
+                        <p style="text-align: center; color: #999; font-size: 0.8rem;">Admin Panel Access</p>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <!-- Admin Panel -->
         <div id="admin-panel" class="admin-console" style="display: none;">
             <div class="admin-head">
-                <h3> Enterprise Admin Hub</h3>
+                <h3>🛡️ Enterprise Admin Hub</h3>
                 <div class="admin-ops">
                     <button class="btn-export" onclick="downloadCSV()">Export CSV</button>
                     <button class="btn-reset" onclick="clearLogs()">Reset Day</button>
@@ -71,12 +359,20 @@
 
             <div class="metrics-grid">
                 <div class="metric-box">
-                    <label>Attendance</label>
+                    <label>Today's Attendance</label>
                     <h2 id="live-count">0</h2>
                 </div>
                 <div class="metric-box" style="border-color: #ff7675;">
                     <label>Security Flags</label>
                     <h2 id="alert-count">0</h2>
+                </div>
+                <div class="metric-box" style="border-color: #fdcb6e;">
+                    <label>Total Bookings</label>
+                    <h2 id="booking-count">0</h2>
+                </div>
+                <div class="metric-box" style="border-color: #74b9ff;">
+                    <label>Revenue Today</label>
+                    <h2 id="revenue-count">₹0</h2>
                 </div>
             </div>
 
@@ -86,21 +382,64 @@
                 <p id="crowd-status">Optimizing System...</p>
             </div>
 
+            <!-- Prediction Dashboard -->
+            <div class="admin-prediction">
+                <h4>📈 Smart Predictions</h4>
+                <div class="prediction-display">
+                    <p>Expected Lunch Attendance: <strong>156 students</strong></p>
+                    <p>Expected Dinner Attendance: <strong>189 students</strong></p>
+                    <p>Recommended Food Preparation: <strong>175 plates</strong></p>
+                </div>
+            </div>
+
             <div class="log-container">
-                <h4>Verified Attendance Log</h4>
-                <div class="scroll-box"><table id="log-table"><thead><tr><th>Name</th><th>Roll</th><th>Year</th></tr></thead><tbody id="log-body"></tbody></table></div>
+                <h4>✅ Verified Attendance Log</h4>
+                <div class="scroll-box">
+                    <table id="log-table">
+                        <thead><tr><th>Name</th><th>Roll</th><th>Meal</th><th>Time</th></tr></thead>
+                        <tbody id="log-body"></tbody>
+                    </table>
+                </div>
                 
-                <h4 style="color:#ff7675; margin-top:20px;"> Security Breach Log</h4>
-                <div class="scroll-box"><table id="sec-table"><thead><tr><th>Roll</th><th>Meal</th><th>Timestamp</th></tr></thead><tbody id="sec-body"></tbody></table></div>
+                <h4 style="color:#ff7675; margin-top:20px;">🚨 Security Breach Log</h4>
+                <div class="scroll-box">
+                    <table id="sec-table">
+                        <thead><tr><th>Roll</th><th>Meal</th><th>Timestamp</th></tr></thead>
+                        <tbody id="sec-body"></tbody>
+                    </table>
+                </div>
+
+                <h4 style="margin-top:20px;">⭐ Recent Feedback</h4>
+                <div class="scroll-box">
+                    <div id="feedback-log"></div>
+                </div>
             </div>
             <button class="btn-exit" onclick="closeAdmin()">Exit Dashboard</button>
         </div>
+
+        <!-- Notification Panel -->
+        <div id="notification-panel" class="notification-drawer" style="display: none;">
+            <div class="drawer-header">
+                <h3>🔔 Notifications</h3>
+                <button onclick="closeNotifications()">✕</button>
+            </div>
+            <div class="notif-list">
+                <div class="notif-item unread">
+                    <p><strong>Lunch closes in 30 mins</strong></p>
+                    <span class="time-ago">10 mins ago</span>
+                </div>
+                <div class="notif-item">
+                    <p>Tomorrow's menu updated: Special Biryani!</p>
+                    <span class="time-ago">2 hours ago</span>
+                </div>
+                <div class="notif-item">
+                    <p>Your booking for Dinner confirmed</p>
+                    <span class="time-ago">5 hours ago</span>
+                </div>
+            </div>
+        </div>
     </div>
+    
     <script src="script.js"></script>
 </body>
-</html>
-    <script  src="./script.js"></script>
-
-  </body>
-  
 </html>
