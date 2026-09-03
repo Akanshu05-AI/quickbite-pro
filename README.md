@@ -1,5 +1,9 @@
 # QuickBite Pro | Smart Mess Management System
 
+[![Live Demo](https://img.shields.io/badge/Live_Demo-quickbite--pro.vercel.app-black?style=for-the-badge&logo=vercel)](https://quickbite-pro.vercel.app/)
+
+> 🌐 **Live Demo**: [https://quickbite-pro.vercel.app/](https://quickbite-pro.vercel.app/)
+
 QuickBite Pro is a modern, responsive web application designed to streamline university mess operations. It features a sleek UI for students to book meals, track health/calories, and manage their digital wallet, alongside a hidden administrative dashboard for real-time attendance and crowd monitoring.
 
 ## ✨ Key Features
@@ -19,6 +23,8 @@ QuickBite Pro is a modern, responsive web application designed to streamline uni
 - **Storage**: Browser LocalStorage (Persistence without a backend)
 - **External Libraries**: [QRCode.js](https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js) for meal pass generation.
 
-## 🚀 Getting Started
+## 🚀 Live Demo & Getting Started
 
-Since this is a client-side application, no installation is required!
+- **Live URL**: [https://quickbite-pro.vercel.app/](https://quickbite-pro.vercel.app/)
+- **Run Locally**: Since this is a client-side application, simply clone the repository and open `index.html` in any modern web browser!
+
